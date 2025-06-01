@@ -1,24 +1,50 @@
 package labs.pm.app;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.time.LocalDate;
 
+import labs.pm.data.Drink;
+import labs.pm.data.Food;
 import labs.pm.data.Product;
+import labs.pm.data.Rating;
 
 /***
  * {@code Shop}
  */
 public class Shop {
-    public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
-        Product p1 = new Product();
-        p1.setId(101);
-        p1.setName("Tea");
-        p1.setPrice(BigDecimal.valueOf(1.99));
-        System.out.println(p1.getId());
-        System.out.println(p1.getName());
-        System.out.println(p1.getPrice());
-        System.out.println(p1.getDiscount());
-        System.out.println(p1.getDiscount().setScale(2,RoundingMode.FLOOR));
-    }
+        public static void main(String[] args) throws Exception {
+                System.setOut(new java.io.PrintStream(System.out, true, "UTF-8"));
+
+                Product p1 = new Drink(101, "Tea", BigDecimal.valueOf(1.99),Rating.THREE_STAR);
+                System.out.println(p1);
+
+                Product p2 = new Drink(102, "Coffee", BigDecimal.valueOf(1.99), Rating.FOUR_STAR);
+                Product p3 = new Food(103, "Cake", BigDecimal.valueOf(3.99), Rating.FIVE_STAR,
+                                LocalDate.now().plusDays(2));
+                System.out.println(p2);
+
+                System.out.println(p3);
+
+                Product p4 = new Food(105,"Cookie", BigDecimal.valueOf(3.99),Rating.TWO_STAR,LocalDate.now());
+                System.out.println(p4);
+
+                Product p5 = p3.applyRating(Rating.THREE_STAR);
+
+                Product p8 = p4.applyRating(Rating.FIVE_STAR);
+                Product p9 = p1.applyRating(Rating.TWO_STAR);
+                System.out.println("p8" + p8);
+                System.out.println("p9" +p9);
+                
+                System.out.println(p3.getBestBefore());
+                System.out.println(p1.getBestBefore());
+                
+                System.out.println(p5);
+
+                Product p6 = new Drink(104, "Chocolate", BigDecimal.valueOf(2.99), Rating.FIVE_STAR);
+                System.out.println(p6);
+
+                Product p7 = new Food(104, "Chocolate", BigDecimal.valueOf(2.99), Rating.FIVE_STAR,
+                LocalDate.now().plusDays(2));
+                System.out.println(p6.equals(p7));
+        }
 }
